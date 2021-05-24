@@ -6,8 +6,9 @@
   "dependencies": {
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "@cubejs-backend/mysql-driver": "^0.19.17",
-    "node-flywaydb": "^3.0.5"
+    "node-flywaydb": "^3.0.5",
+    "sequelize": "^6.5.1",
+    "bcrypt": "^5.0.1"
   },
   "devDependencies": {
     "nodemon": "^1.19.2",
