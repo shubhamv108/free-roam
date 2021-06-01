@@ -1,18 +1,11 @@
-require('dotenv').config();
+const FREE_ROAM_DB = require('../constants/index').EnvironmentConfiguration.FREE_ROAM_DB;
 
-const Sequelize = require('sequelize');
-
-const db_name = process.env.CUBEJS_EXT_DB_NAME
-const db_user = process.env.CUBEJS_EXT_DB_USER
-const db_pass = process.env.CUBEJS_EXT_DB_PASS
-const db_host = process.env.CUBEJS_EXT_DB_HOST
-
-const db = new Sequelize(db_name, db_user, db_pass,  {
-    host: db_host,
-    dialect: 'mysql',
+const db = new Sequelize(FREE_ROAM_DB.NAME, FREE_ROAM_DB.USERNAME, FREE_ROAM_DB.PASSWORD,  {
+    host: FREE_ROAM_DB.HOST,
+    dialect: FREE_ROAM_DB.DIALECT,
     pool: {
-        max: 20,
-        min: 0,
+        max: FREE_ROAM_DB.MAX_CONNECTIONS,
+        min: FREE_ROAM_DB.MIN_CONNECTIONS,
         idle: 10000
     }
 });

@@ -1,5 +1,6 @@
-const enums = require('./enums')
+const Enums = require('./Enums')
+const EnvironmentConfiguration = require('./EnvironmentConfiguration')
 
 module.exports = {
-    enums
+    EnvironmentConfiguration, Enums
 }

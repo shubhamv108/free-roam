@@ -1,4 +1,4 @@
-const { ClientSubscription } = require('../models/index');
+const { ClientSubscription } = require('../entities/index');
 
 function create(clientSubscriptionVO) {
     return ClientSubscription.create({

@@ -1,6 +1,7 @@
 const Status = {
     ACTIVE: 'Active',
-    INACTIVE: 'Inactive'
+    INACTIVE: 'Inactive',
+    EXPIRED: 'Expired'
 };
 
 module.exports = {

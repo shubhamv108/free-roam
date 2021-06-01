@@ -1,22 +1,25 @@
 const { DataTypes } = require('sequelize');
 const { FreeRoamMysqlService } = require("../services/index");
 
-const ClientQueryLog = FreeRoamMysqlService.define('clientQueryLogs', {
+const UserSession = FreeRoamMysqlService.define('user_sessions', {
     id: {
-        type: DataTypes.INTEGER
-    },
-    clientId: {
         type: DataTypes.INTEGER
     },
     userId: {
         type: DataTypes.INTEGER
     },
-    query: {
+    token: {
         type: DataTypes.STRING
     },
     createdOn: {
         type: DataTypes.DATE
+    },
+    ttl: {
+        type: DataTypes.BIGINT
+    },
+    status: {
+        type: DataTypes.ENUM
     }
 });
 
-module.exports = ClientQueryLog;
+module.exports = UserSession;

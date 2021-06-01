@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const { FreeRoamMysqlService } = require("../services/index");
+const { Graph } = require(".//index");
 
 const Query = FreeRoamMysqlService.define('queries', {
     id: {
@@ -10,7 +11,9 @@ const Query = FreeRoamMysqlService.define('queries', {
     },
     createdOn: {
         type: DataTypes.DATE
-    },
+    }
 });
+
+Query.hasMany(Graph, { foreignKey: 'Query_id' });
 
 module.exports = Query;

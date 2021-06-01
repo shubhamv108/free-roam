@@ -48,5 +48,6 @@ User.belongsTo(Client, {
     foreignKey: "Client_id",
     as: "client",
 });
+User.hasMany(ClientQueryLog, { foreignKey: 'User_id', as: 'query_logs' });
 
 module.exports = User;

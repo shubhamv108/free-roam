@@ -1,4 +1,4 @@
-const { Dashboard } = require('../models/index');
+const { Dashboard } = require('../entities/index');
 
 function create(userId, status) {
     return Dashboard.create({

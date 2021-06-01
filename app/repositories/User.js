@@ -1,13 +1,14 @@
-const { User } = require('../models');
+const { User } = require('../entities');
 const { PasswordUtils } = require('../utils')
 
-function create(userVO) {
+function save(userVO) {
     return User.create({
         name: userVO.name,
         email: userVO.email,
         password: PasswordUtils.getSaltedHash(userVO.password),
         emailVerificationCode: userVO.emailVerificationCode,
-        clientId: clientId,
+        emailVerificationCodeExpiry: userVO.emailVerificationCodeExpiry,
+        clientId: userVO.clientId,
         isClientAdmin: userVO.isClientAdmin
     });
 };
@@ -55,8 +56,15 @@ function findAllAdmin() {
     });
 };
 
+function setNewEmailVerificationCode(entity, emailVerificationCode) {
+    entity.update({
+        emailVerificationCode: emailVerificationCode,
+        emailVerificationCodeExpiry: Date.now() + 86400000
+    });
+}
+
 
 module.exports = {
-    create, findByEmailId, findAllByClientId, findAllClientAdminByClientId, findAllAdmin,
+    save, findByEmailId, findAllByClientId, findAllClientAdminByClientId, findAllAdmin,
     findAllPendingForApprovalFromClientAdminByClientId
 };

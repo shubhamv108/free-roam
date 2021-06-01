@@ -1,24 +1,13 @@
 const { DataTypes } = require('sequelize');
 const { FreeRoamMysqlService } = require("../services/index");
+const { Graph, DashboardGraphMapping } = require(".//index");
 
 const Dashboard = FreeRoamMysqlService.define('dashboards', {
     id: {
         type: DataTypes.INTEGER
     },
-    name: {
-        type: DataTypes.STRING
-    },
-    queryId: {
+    userId: {
         type: DataTypes.INTEGER
-    },
-    xAxisColumnName: {
-        type: DataTypes.STRING
-    },
-    yAxisColumnName: {
-        type: DataTypes.STRING
-    },
-    zAxisColumnName: {
-        type: DataTypes.STRING
     },
     status: {
         type: DataTypes.ENUM
@@ -30,5 +19,7 @@ const Dashboard = FreeRoamMysqlService.define('dashboards', {
         type: DataTypes.DATE
     },
 });
+
+Dashboard.hasMany(DashboardGraphMapping, { foreignKey: 'Dashboard_id', as: "graphs" });
 
 module.exports = Dashboard;

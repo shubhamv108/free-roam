@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const { FreeRoamMysqlService } = require("../services/index");
 const { User } = require("./User")
-const { ClientSubscription } = require("./ClientSubscription")
+const { ClientSubscription, SubscriptionPlan, User, ClientQueryLog } = require("./ClientSubscription")
 const { SubscriptionPlan } = require("./SubscriptionPlan")
 
 const Client = FreeRoamMysqlService.define('clients', {
@@ -14,6 +14,12 @@ const Client = FreeRoamMysqlService.define('clients', {
     name: {
         type: DataTypes.STRING
     },
+    isOrganization: {
+        type: DataTypes.BOOLEAN
+    },
+    emailId: {
+        type: DataTypes.STRING
+    },
     createdOn: {
         type: DataTypes.DATE
     },
@@ -22,6 +28,6 @@ const Client = FreeRoamMysqlService.define('clients', {
     },
 });
 
-Client.hasMany({ User, { foreignKey: 'Client_id', as: "users" })
-
+Client.hasMany(User, { foreignKey: 'Client_id', as: "users" });
+Client.hasMany(ClientQueryLog, { foreignKey: 'Client_id', as: 'query_logs' });
 module.exports = Client;

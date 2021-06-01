@@ -1,4 +1,4 @@
-const { SubscriptionPlan } = require('../models/index');
+const { SubscriptionPlan } = require('../entities/index');
 const { Status } = require('../constants/index')
 
 function findAllByStatus(status) {
@@ -6,6 +6,17 @@ function findAllByStatus(status) {
         where: {
             status: status
         }
+    });
+};
+
+function create(subscriptionPlanVO) {
+    return SubscriptionPlan.create({
+        name: subscriptionPlanVO.name,
+        validity: subscriptionPlanVO.validity,
+        queryCount: subscriptionPlanVO.queryCount,
+        dataAccessibilityStartDate: subscriptionPlanVO.dataAccessibilityStartDate,
+        dataAccessibilityEndDate: subscriptionPlanVO.dataAccessibilityEndDate,
+        status: subscriptionPlanVO.status
     });
 };
 
@@ -60,14 +71,8 @@ function findByGreaterThanValidity(validity) {
     });
 };
 
-function create(subscriptionPlanVO) {
-    return SubscriptionPlan.create({
-        name: subscriptionPlanVO.name,
-        validity: subscriptionPlanVO.validity,
-        queryCount: subscriptionPlanVO.queryCount,
-        dataAccessibilityStartDate: subscriptionPlanVO.dataAccessibilityStartDate,
-        dataAccessibilityEndDate: subscriptionPlanVO.dataAccessibilityEndDate,
-        status: subscriptionPlanVO.status
-    });
+module.exports = {
+    create, findAllByStatus, findAllByDataAccessibilityDateRange, findByLessThanQueryCount, findByGreaterThanQueryCount,
+    findByLessThanValidity, findByGreaterThanValidity
 };
 
