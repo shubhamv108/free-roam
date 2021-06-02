@@ -9,7 +9,7 @@ function save(userVO) {
         emailVerificationCode: userVO.emailVerificationCode,
         emailVerificationCodeExpiry: userVO.emailVerificationCodeExpiry,
         clientId: userVO.clientId,
-        isClientAdmin: userVO.isClientAdmin
+        type: userVO.type
     });
 };
 
@@ -63,8 +63,20 @@ function setNewEmailVerificationCode(entity, emailVerificationCode) {
     });
 }
 
+function setClient(entity, valueObject) {
+    entity.update({
+        clientId: valueObject.clientId,
+        type: valueObject.userType
+    });
+}
+
+function emailVerified(entity) {
+    entity.update({
+        isEmailVerified: true
+    });
+}
 
 module.exports = {
     save, findByEmailId, findAllByClientId, findAllClientAdminByClientId, findAllAdmin,
-    findAllPendingForApprovalFromClientAdminByClientId
+    findAllPendingForApprovalFromClientAdminByClientId, setClient, emailVerified
 };

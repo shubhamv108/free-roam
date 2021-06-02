@@ -1,7 +1,8 @@
 const { DataTypes } = require('sequelize');
 const { FreeRoamMysqlService } = require("../services/index");
+const { Dashboard }= require('../entities/index');
 
-const DashboardGraphMapping = FreeRoamMysqlService.define('dashboard_graph_mapping', {
+const DashboardGraphMapping = FreeRoamMysqlService.define('dashboard__graph__mapping', {
     dashboardId: {
         type: DataTypes.INTEGER
     },
@@ -14,7 +15,7 @@ const DashboardGraphMapping = FreeRoamMysqlService.define('dashboard_graph_mappi
     rowPosition: {
         type: DataTypes.INTEGER
     },
-    columnPosiiton: {
+    columnPosition: {
         type: DataTypes.INTEGER
     },
     status: {
@@ -25,7 +26,12 @@ const DashboardGraphMapping = FreeRoamMysqlService.define('dashboard_graph_mappi
     },
     updatedOn: {
         type: DataTypes.DATE
-    },
+    }
 });
 
-module.exports = DashboardGraphMapping;
+DashboardGraphMapping.belongsTo(Graph, { foreignKey: 'Graph_id', as: 'Graph' });
+DashboardGraphMapping.belongsTo(Dashboard, { foreignKey: 'Dashboard_id', as: 'Dashboard' });
+
+module.exports = {
+    DashboardGraphMapping
+};

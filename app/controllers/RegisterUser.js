@@ -1,33 +1,39 @@
 const { Client, User } = require('../repositories/index');
 const { NotificationService }  = require('../services/notifications/index');
 const { OTPUtils } = require('../utils/index');
+const { UserType, ClientType } = require('../constants/index').Enums;
 
-function register(userRegistrationRequest) {
-    validate(userRegistrationRequest);
+function register(request) {
+    validate(request);
     
-    if (userRegistrationRequest.clientName) {
-        client = Client.findByName(userRegistrationRequest.clientName);
-        userRegistrationRequest.isOrganization = true;
+    if (request.clientName) {
+        client = Client.findByName(request.clientName);
         if (client) {
-            userRegistrationRequest.clientId = client.id;
+            request.clientId = client.id;
         }
+        request.isOrganization = true;
+        request.userType = UserType.CLIENT_USER;
+        request.clientType = ClientType.ORGANIZATION;
     } else {
-        userRegistrationRequest.isOrganization = false;
+        request.isOrganization = false;
     }
-    userRegistrationRequest.emailVerificationCode = OTPUtils.generateOTP();
-    userRegistrationRequest.emailVerificationCodeExpiry = Date.now() + 86400000;
+    request.emailVerificationCode = OTPUtils.generateOTP();
+    request.emailVerificationCodeExpiry = Date.now() + 86400000;
 
-    if (userRegistrationRequest.clientId) {
-        return User.save(userRegistrationRequest);
-    } else if (userRegistrationRequest.isIndividualClient) {
-        return Client.saveNewClientAndUser(userRegistrationRequest);
+    if (request.clientId) {
+        return User.save(request);
+    } else if (request.isIndividualClient) {
+        request.userType = UserType.CLIENT_ADMIN;
+        request.clientType = ClientType.INDIVIDUAL;
+        return Client.saveNewClientAndUser(request);
     } else {
-        User.save(userRegistrationRequest);
+        User.save(request);
     }
-    NotificationService.send(userRegistrationRequest.emailId, 1, userRegistrationRequest);
+
+    NotificationService.send(request.emailId, 1, request);
 }
 
-function validate(userRegistrationRequest) {
+function validate(request) {
     errorMessages = {};
 }
 

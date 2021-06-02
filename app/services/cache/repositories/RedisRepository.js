@@ -1,4 +1,4 @@
-const client = require('../../services/index').RedisService.client
+const client = require('../../index').RedisService.client
 
 function SETEX (key, value, ttl) {
     client.setex(searchTerm, ttl, JSON.stringify(value));

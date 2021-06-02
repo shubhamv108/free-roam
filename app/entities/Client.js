@@ -14,8 +14,8 @@ const Client = FreeRoamMysqlService.define('clients', {
     name: {
         type: DataTypes.STRING
     },
-    isOrganization: {
-        type: DataTypes.BOOLEAN
+    type: {
+        type: DataTypes.STRING
     },
     emailId: {
         type: DataTypes.STRING

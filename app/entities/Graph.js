@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const { FreeRoamMysqlService } = require("../services/index");
+const { DashboardGraphMapping } = require('../entities/DashboardGraphMapping');
 
 const Graph = FreeRoamMysqlService.define('graphs', {
     id: {
@@ -31,6 +32,6 @@ const Graph = FreeRoamMysqlService.define('graphs', {
     },
 });
 
-Graph.belongsTo(Dashboard, { foreignKey: 'Graph_id', as: 'dashboard' });
+Graph.hasOne(DashboardGraphMapping, { foreignKey: 'Graph_id' });
 
 module.exports = Dashboard;

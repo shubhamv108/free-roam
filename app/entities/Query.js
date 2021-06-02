@@ -1,6 +1,6 @@
 const { DataTypes } = require('sequelize');
 const { FreeRoamMysqlService } = require("../services/index");
-const { Graph } = require(".//index");
+const { Graph } = require("./index");
 
 const Query = FreeRoamMysqlService.define('queries', {
     id: {

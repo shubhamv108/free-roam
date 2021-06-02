@@ -6,9 +6,8 @@ CREATE TABLE IF NOT EXISTS free_roam.`users` (
     `email_verification_code`                       VARCHAR(8),
     `email_verification_code_expiry`                DATETIME                    DEFAULT,
     `password`                                      VARCHAR(64)     NOT NULL,
-    `is_admin`                                      TINYINT(1)      NOT NULL    DEFAULT 0,
+    `type`          ENUM('ADMIN', 'CLIENT_ADMIN', 'CLIENT_USER')                DEFAULT 0,
     `client_id`                                     INT(12),
-    `is_client_admin`                               TINYINT(1)                  DEFAULT 0,
     `is_pending_for_approval_from_client_admin`     TINYINT(1)                  DEFAULT 1,
     `created_on`                                    DATETIME        NOT NULL    DEFAULT NOW(),
     `updated_on`                                    DATETIME        NOT NULL    DEFAULT NOW(),
@@ -37,7 +36,7 @@ CREATE TABLE IF NOT EXISTS free_roam.`clients` (
     `id`                INT(12)         NOT NULL    AUTO_INCREMENT,
     `domain`            VARCHAR(128),
     `name`              VARCHAR(128),
-    `is_organization`   TINYINT(1)      DEFAULT 0,
+    `type`              ENUM('INDIVIDUAL', 'ORGANIZATION'),
     `email_id`          VARCHAR(256)    NOT NULL,
     `created_on`        DATETIME        NOT NULL    DEFAULT NOW(),
     `updated_on`        DATETIME        NOT NULL    DEFAULT NOW(),
@@ -86,14 +85,19 @@ ALTER TABLE free_roam.`client_subscriptions`
 
 CREATE TABLE free_roam.`dashboards` (
     `id`                                INT(12)         NOT NULL    AUTO_INCREMENT,
+    `name`                              VARCHAR(256)    NOT NULL,
     `user_id`                           INT(12)         NOT NULL,
     `status`                            ENUM('ACTIVE', 'INACTIVE'),
-    PRIMARY KEY (`id`)
+    `type`                              ENUM('DEFAULT'),
+    `created_on`                        DATETIME        NOT NULL    DEFAULT NOW(),
+    `updated_on`                        DATETIME        NOT NULL    DEFAULT NOW(),
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `UK_free_roam_dashboards_name_user_id` (`name`, `user_id`)
 );
 
 ALTER TABLE free_roam.`dashboards`
-    ADD CONSTRAINT  FK_free_roam_dashboards_client_id
-        FOREIGN KEY     (`client_id`)                 REFERENCES      `clients`   (`id`);
+    ADD CONSTRAINT  FK_free_roam_dashboards_user_id
+        FOREIGN KEY     (`user_id`)                 REFERENCES      `users`   (`id`);
 
 CREATE TABLE free_roam.`queries` (
     `id`                                BIGINT(20)      NOT NULL    AUTO_INCREMENT,

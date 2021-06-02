@@ -1,6 +1,6 @@
 const { DataTypes } = require('sequelize');
 const { FreeRoamMysqlService } = require("../services/index");
-const { Client, User } = require(".//index");
+const { Client, User } = require("./index");
 
 const ClientQueryLog = FreeRoamMysqlService.define('clientQueryLogs', {
     id: {

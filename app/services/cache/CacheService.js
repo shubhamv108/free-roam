@@ -1,4 +1,4 @@
-const { InMemoryCacheRepository, RedisRepository } = require('../repositories/cache/index');
+const { InMemoryCacheRepository, RedisRepository } = require('./repositories/index');
 
 function SETEX(key, value, ttl) {
     try {

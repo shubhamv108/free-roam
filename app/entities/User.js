@@ -24,14 +24,11 @@ const User = FreeRoamMysqlService.define('users', {
     password: {
         type: DataTypes.STRING
     },
-    isAdmin: {
-        type: DataTypes.BOOLEAN
+    type: {
+        type: DataTypes.STRING
     },
     clientId: {
         type: DataTypes.INTEGER
-    },
-    isClientAdmin: {
-        type: DataTypes.BOOLEAN
     },
     isPendingForApprovalFromClientAdmin: {
         type: DataTypes.BOOLEAN

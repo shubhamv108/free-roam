@@ -1,10 +1,16 @@
 const { DataTypes } = require('sequelize');
 const { FreeRoamMysqlService } = require("../services/index");
-const { Graph, DashboardGraphMapping } = require(".//index");
+const { Graph, DashboardGraphMapping } = require("./index");
 
 const Dashboard = FreeRoamMysqlService.define('dashboards', {
     id: {
         type: DataTypes.INTEGER
+    },
+    name: {
+        type: DataTypes.STRING
+    },
+    type: {
+        type: DataTypes.String
     },
     userId: {
         type: DataTypes.INTEGER

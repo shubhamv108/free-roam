@@ -1,12 +1,13 @@
-const Client = require('./Client')
-const ClientQueryLog = require('./ClientQueryLog')
-const ClientSubscription = require('./ClientSubscription')
-const Dashboard = require('./Dashboard')
-const DashboardGraphMapping = require('./DashboardGraphMapping')
-const SubscriptionPlan = require('./SubscriptionPlan')
-const User = require('./User')
-const UserSession = require('./UserSession')
+const Client = require('./Client');
+const ClientQueryLog = require('./ClientQueryLog');
+const ClientSubscription = require('./ClientSubscription');
+const Dashboard = require('./Dashboard');
+const DashboardGraphMapping = require('./DashboardGraphMapping');
+const SubscriptionPlan = require('./SubscriptionPlan');
+const User = require('./User');
+const UserSession = require('./UserSession');
+const Graph = require('./Graph');
 
 module.exports = {
-    Client, ClientQueryLog, ClientSubscription, Dashboard, DashboardGraphMapping, SubscriptionPlan, User, UserSession
-}
+    Client, ClientQueryLog, ClientSubscription, Dashboard, DashboardGraphMapping, SubscriptionPlan, User, UserSession, Graph
+};
